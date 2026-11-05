@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — Panther Games</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    
+    .product-card-img {
+      overflow: hidden;
+      height: 180px;
+    }
+    
+    .product-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    
+    .product-card:hover .product-card-img img {
+      transform: scale(1.05);
+    }
+    
+    .product-card-body {
+      padding: 20px;
+    }
+    
+    .product-category {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 8px;
+    }
+    
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .product-desc {
+      font-size: 0.83rem;
+      color: var(--text-mid);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .product-price {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--neon);
+    }
+    
+    .btn-add-to-cart {
+      background: linear-gradient(135deg, var(--neon), var(--purple));
+      border: none;
+      border-radius: var(--radius);
+      padding: 8px 16px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg-void);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+      cursor: pointer;
+    }
+    
+    .btn-add-to-cart:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--neon-glow);
+    }
+    
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 32px;
+      border-bottom: 2px solid var(--border-dim);
+      padding-bottom: 16px;
+    }
+    
+    .category-header h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-bright);
+    }
+    
+    .category-header h2 span {
+      color: var(--neon);
+    }
+    
+    .category-section {
+      margin-bottom: 60px;
+      scroll-margin-top: 80px;
+    }
+    
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    
+    .filter-btn {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 24px;
+      border-radius: 40px;
+      border: 1px solid var(--border-dim);
+      background: transparent;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .filter-btn:hover {
+      background: var(--neon);
+      border-color: var(--neon);
+      color: var(--bg-void);
+    }
+    
+    .category-hero {
+      text-align: center;
+      margin: 40px 0;
+    }
+    
+    .category-hero h1 {
+      font-size: 3rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon" style="border-radius: 50%; overflow: hidden;">
+          <img src="images/Panther logo.webp" alt="Panther Games Logo" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <span class="nav-logo-text">PANTHER<span>.</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="cart.html">Cart</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="cart.html" class="nav-cart-btn">🛒 Cart <span class="nav-cart-badge">3</span></a>
+      <label for="nav-toggle" class="nav-toggle-label">
+        <span></span><span></span><span></span>
+      </label>
+    </div>
+  </nav>
+
+  
+  <div class="category-hero">
+    <div class="container">
+      <span class="section-tag">Our Catalogue</span>
+      <h1>Gear Up for <span style="color:var(--neon);">Victory</span></h1>
+      <p>Hand-picked premium games, controllers, and peripherals — tested by gamers, trusted by pros.</p>
+    </div>
+  </div>
+
+  
+  <section style="padding-top: 0;">
+    <div class="container">
+
+     
+      <div class="filter-bar">
+        <a href="#" class="filter-btn">All</a>
+        <a href="#games" class="filter-btn">Games</a>
+        <a href="#controllers" class="filter-btn">Controllers</a>
+        <a href="#headsets" class="filter-btn">Headsets</a>
+        <a href="#keyboards" class="filter-btn">Keyboards</a>
+        <a href="#mice" class="filter-btn">Mice</a>
+      </div>
+
+      
+      <div class="category-section" id="games">
+        <div class="category-header">
+          <h2>🎮 <span>Top</span> Games</h2>
+        </div>
+        <div class="products-grid">
+        
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/TURBO OVERKILL 2.jpg" alt="Turbo Overkill"></div>
+            <div class="product-card-body">
+              <p class="product-category">FPS Game</p>
+              <h3 class="product-name">Turbo Overkill</h3>
+              <p class="product-desc">Cyberpunk FPS with a chainsaw leg. Ultra-fast paced action.</p>
+              <div class="product-footer">
+                <div class="product-price">$19.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/elden ring.jpg" alt="Elden Ring"></div>
+            <div class="product-card-body">
+              <p class="product-category">RPG Game</p>
+              <h3 class="product-name">Elden Ring</h3>
+              <p class="product-desc">Critically acclaimed action-RPG from the creators of Dark Souls.</p>
+              <div class="product-footer">
+                <div class="product-price">$59.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+         
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Froza Horizon.jpg" alt="Forza Horizon 5"></div>
+            <div class="product-card-body">
+              <p class="product-category">Racing Game</p>
+              <h3 class="product-name">Forza Horizon 5</h3>
+              <p class="product-desc">Open-world racing in beautiful Mexico. Over 500 cars.</p>
+              <div class="product-footer">
+                <div class="product-price">$59.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+         
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/total war.jpg" alt="Total War: Warhammer III"></div>
+            <div class="product-card-body">
+              <p class="product-category">Strategy Game</p>
+              <h3 class="product-name">Total War: Warhammer III</h3>
+              <p class="product-desc">Epic turn-based strategy with real-time tactical battles.</p>
+              <div class="product-footer">
+                <div class="product-price">$59.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/visage.avif" alt="Visage"></div>
+            <div class="product-card-body">
+              <p class="product-category">Horror Game</p>
+              <h3 class="product-name">Visage</h3>
+              <p class="product-desc">Psychological horror that will leave you terrified.</p>
+              <div class="product-footer">
+                <div class="product-price">$34.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="category-section" id="controllers">
+        <div class="category-header">
+          <h2>🎮 <span>Elite</span> Controllers</h2>
+        </div>
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/phantom controller.webp" alt="Phantom Pro Controller"></div>
+            <div class="product-card-body">
+              <p class="product-category">Wireless</p>
+              <h3 class="product-name">Phantom Pro Controller</h3>
+              <p class="product-desc">Elite haptic feedback, magnetic triggers, 40hr battery.</p>
+              <div class="product-footer">
+                <div class="product-price">$89.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/rgb games.webp" alt="Strike RGB Controller"></div>
+            <div class="product-card-body">
+              <p class="product-category">RGB Gaming</p>
+              <h3 class="product-name">Strike RGB Controller</h3>
+              <p class="product-desc">Customizable RGB lighting with programmable back paddles.</p>
+              <div class="product-footer">
+                <div class="product-price">$79.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Nano Wireless Controller.jpg" alt="Nano Wireless Controller"></div>
+            <div class="product-card-body">
+              <p class="product-category">Compact</p>
+              <h3 class="product-name">Nano Wireless Controller</h3>
+              <p class="product-desc">Ultra-compact design perfect for portable gaming.</p>
+              <div class="product-footer">
+                <div class="product-price">$59.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Viper Elite Controller.jpg" alt="Viper Elite Controller"></div>
+            <div class="product-card-body">
+              <p class="product-category">Pro Series</p>
+              <h3 class="product-name">Viper Elite Controller</h3>
+              <p class="product-desc">Professional grade with swappable thumbsticks.</p>
+              <div class="product-footer">
+                <div class="product-price">$129.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Retro Classic Controller.webp" alt="Retro Classic Controller"></div>
+            <div class="product-card-body">
+              <p class="product-category">Retro</p>
+              <h3 class="product-name">Retro Classic Controller</h3>
+              <p class="product-desc">Nostalgic design with modern wireless technology.</p>
+              <div class="product-footer">
+                <div class="product-price">$49.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="category-section" id="headsets">
+        <div class="category-header">
+          <h2>🎧 <span>Premium</span> Headsets</h2>
+        </div>
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Viper RGB Headset.jpg" alt="Viper RGB Headset"></div>
+            <div class="product-card-body">
+              <p class="product-category">Wireless</p>
+              <h3 class="product-name">Viper RGB Headset</h3>
+              <p class="product-desc">7.1 surround sound, noise-cancelling mic, memory foam.</p>
+              <div class="product-footer">
+                <div class="product-price">$129.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Thunder Pro Headset.webp" alt="Thunder Pro Headset"></div>
+            <div class="product-card-body">
+              <p class="product-category">Pro Gaming</p>
+              <h3 class="product-name">Thunder Pro Headset</h3>
+              <p class="product-desc">50mm drivers, crystal clear audio, lightweight.</p>
+              <div class="product-footer">
+                <div class="product-price">$99.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Apex Tournament Headset.webp" alt="Apex Tournament Headset"></div>
+            <div class="product-card-body">
+              <p class="product-category">Tournament</p>
+              <h3 class="product-name">Apex Tournament Headset</h3>
+              <p class="product-desc">Esports certified with detachable mic.</p>
+              <div class="product-footer">
+                <div class="product-price">$149.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Stealth Wireless Headset.webp" alt="Stealth Wireless Headset"></div>
+            <div class="product-card-body">
+              <p class="product-category">Noise Cancelling</p>
+              <h3 class="product-name">Stealth Wireless Headset</h3>
+              <p class="product-desc">Active noise cancellation, 30hr battery life.</p>
+              <div class="product-footer">
+                <div class="product-price">$179.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/RGB Gaming.jpg" alt="Eclipse RGB Headset"></div>
+            <div class="product-card-body">
+              <p class="product-category">RGB Gaming</p>
+              <h3 class="product-name">Eclipse RGB Headset</h3>
+              <p class="product-desc">Full RGB lighting with virtual 7.1 surround sound.</p>
+              <div class="product-footer">
+                <div class="product-price">$89.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+   
+      <div class="category-section" id="keyboards">
+        <div class="category-header">
+          <h2>⌨️ <span>Mechanical</span> Keyboards</h2>
+        </div>
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/HyperKey Pro Keyboard.webp" alt="HyperKey Pro"></div>
+            <div class="product-card-body">
+              <p class="product-category">Mechanical</p>
+              <h3 class="product-name">HyperKey Pro Keyboard</h3>
+              <p class="product-desc">TKL design with optical switches and per-key RGB.</p>
+              <div class="product-footer">
+                <div class="product-price">$79.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/spector.jpg" alt="Specter 60% Keyboard"></div>
+            <div class="product-card-body">
+              <p class="product-category">60% Layout</p>
+              <h3 class="product-name">Specter 60% Keyboard</h3>
+              <p class="product-desc">Ultra-compact with hot-swappable switches.</p>
+              <div class="product-footer">
+                <div class="product-price">$99.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Phantom Full Keyboard.jpg" alt="Phantom Full Keyboard"></div>
+            <div class="product-card-body">
+              <p class="product-category">Full Size</p>
+              <h3 class="product-name">Phantom Full Keyboard</h3>
+              <p class="product-desc">Full layout with dedicated macro keys.</p>
+              <div class="product-footer">
+                <div class="product-price">$119.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Nova Wireless Keyboard.webp" alt="Nova Wireless Keyboard"></div>
+            <div class="product-card-body">
+              <p class="product-category">Wireless</p>
+              <h3 class="product-name">Nova Wireless Keyboard</h3>
+              <p class="product-desc">Low-latency wireless with mechanical switches.</p>
+              <div class="product-footer">
+                <div class="product-price">$139.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Retro Typewriter Keyboard.jpg" alt="Retro Typewriter Keyboard"></div>
+            <div class="product-card-body">
+              <p class="product-category">Retro</p>
+              <h3 class="product-name">Retro Typewriter Keyboard</h3>
+              <p class="product-desc">Vintage design with mechanical switches.</p>
+              <div class="product-footer">
+                <div class="product-price">$89.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="category-section" id="mice">
+        <div class="category-header">
+          <h2>🖱️ <span>Precision</span> Mice</h2>
+        </div>
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Specter Gaming Mouse.jpg" alt="Specter Gaming Mouse"></div>
+            <div class="product-card-body">
+              <p class="product-category">Ultra-light</p>
+              <h3 class="product-name">Specter Gaming Mouse</h3>
+              <p class="product-desc">25K DPI sensor, 8 buttons, 70g ultra-lightweight.</p>
+              <div class="product-footer">
+                <div class="product-price">$69.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Phantom Wireless Mouse.jpg" alt="Phantom Wireless Mouse"></div>
+            <div class="product-card-body">
+              <p class="product-category">Wireless</p>
+              <h3 class="product-name">Phantom Wireless Mouse</h3>
+              <p class="product-desc">Dual connectivity, 20K DPI, 80hr battery.</p>
+              <div class="product-footer">
+                <div class="product-price">$89.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Viper RGB Mouse.jpg" alt="Viper RGB Mouse"></div>
+            <div class="product-card-body">
+              <p class="product-category">RGB Gaming</p>
+              <h3 class="product-name">Viper RGB Mouse</h3>
+              <p class="product-desc">Full RGB customization with 16K DPI sensor.</p>
+              <div class="product-footer">
+                <div class="product-price">$49.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Apex MMO Mouse..jpg" alt="Apex MMO Mouse"></div>
+            <div class="product-card-body">
+              <p class="product-category">MMO Gaming</p>
+              <h3 class="product-name">Apex MMO Mouse</h3>
+              <p class="product-desc">12 programmable side buttons for MMO gaming.</p>
+              <div class="product-footer">
+                <div class="product-price">$79.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"><img src="images/Strike Pro Mouse.avif" alt="Strike Pro Mouse"></div>
+            <div class="product-card-body">
+              <p class="product-category">Esports</p>
+              <h3 class="product-name">Strike Pro Mouse</h3>
+              <p class="product-desc">Esports grade with adjustable weight system.</p>
+              <div class="product-footer">
+                <div class="product-price">$59.99</div>
+                <a href="cart.html" class="btn-add-to-cart">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="margin-bottom:0;">
+          <div class="nav-logo-icon" style="border-radius: 50%; overflow: hidden;">
+            <img src="images/Panther logo.webp" alt="Panther Games Logo" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <span class="nav-logo-text">PANTHER<span>.</span></span>
+        </a>
+        <p>Your ultimate destination for games, gear, and glory. We equip champions since 2018.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Store</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-newsletter">
+        <h4>Newsletter</h4>
+        <p>Get early access to drops, exclusive discounts, and gaming news.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="your@email.com" />
+          <button type="button">Join</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Panther Games. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Cookie Settings</a>
+      </div>
+    </div>
+  </div>
+</footer>
